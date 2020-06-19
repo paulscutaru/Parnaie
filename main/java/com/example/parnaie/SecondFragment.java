@@ -88,14 +88,14 @@ public class SecondFragment extends Fragment {
         player = new ImageView(getContext());
         player.setTag("player");
         player.setX(screenWidth / 2 - 100);
-        player.setY(screenHeight - 430);
+        player.setY(screenHeight - 440);
         player.setLayoutParams(new android.view.ViewGroup.LayoutParams(300, 300));
         player.requestLayout();
         FrameLayout rootLayout = (FrameLayout) view.findViewById(R.id.frame);
         rootLayout.addView(player);
 
-        speed = screenHeight / 145;
-        rate = 300;
+        speed = screenHeight / 200;
+        rate = 400;
         scoreLabel.setText("0");
 
         //MOVE
@@ -133,11 +133,22 @@ public class SecondFragment extends Fragment {
                     if (tigara) {
                         generateTigara();
                     }
-                    if (score == 50) {
-                        speed = screenHeight / 115;
+
+                    if(score < 50){
+                        speed = screenHeight / 200;
                     }
-                    if (score == 100) {
-                        speed = screenHeight / 95;
+                    if (score < 100) {
+                        speed = screenHeight / 150;
+                    } else if (score < 200) {
+                        speed = screenHeight / 140;
+                    } else if (score < 300) {
+                        speed = screenHeight / 120;
+                    } else if (score < 400) {
+                        speed = screenHeight / 100;
+                    } else if (score < 500) {
+                        speed = screenHeight / 80;
+                    } else if (score > 500) {
+                        speed = screenHeight / 60;
                     }
                     handler.postDelayed(this, rate);
                 }
@@ -193,7 +204,6 @@ public class SecondFragment extends Fragment {
 
         initPos(image);
 
-
         Runnable runnableCode = new Runnable() {
             @Override
             public void run() {
@@ -244,22 +254,17 @@ public class SecondFragment extends Fragment {
     }
 
     public void initPos(ImageView[] image) {
-        if (!magnet) {
-            int randomNum = ThreadLocalRandom.current().nextInt(-550, 350);
-            image[0].setX(screenWidth / 2 + randomNum);
-            image[0].setY(0);
-        } else if (magnet) {
-            image[0].setX(player.getX());
-            image[0].setY(0);
-        }
+        int randomNum = ThreadLocalRandom.current().nextInt(-550, 350);
+        image[0].setX(screenWidth / 2 + randomNum);
+        image[0].setY(0);
     }
 
     public void changePos(ImageView image) {
         if (magnet) {
             if (player.getX() > image.getX())
-                image.setX(image.getX() + 4);
-            else if(player.getX() < image.getX())
-                image.setX(image.getX() - 4);
+                image.setX(image.getX() + 2);
+            else if (player.getX() < image.getX())
+                image.setX(image.getX() - 2);
         }
         image.setY(image.getY() + speed);
     }
@@ -270,14 +275,14 @@ public class SecondFragment extends Fragment {
 
         //IF PLAYER GOT IT
         if (image.getX() <= player.getX() + 140 && image.getX() >= player.getX() - 140 &&
-                image.getY() <= player.getY() + 250 && image.getY() >= player.getY() - 250
+                image.getY() <= player.getY() + 255 && image.getY() >= player.getY() - 255
         ) {
             if (cotnari)
                 game = false;
             if (!doubler)
                 score++;
-            else
-                score += 2;
+            else if (doubler)
+                score += 5;
             scoreLabel.setText(Integer.toString(score));
             return 1;
 
@@ -287,7 +292,7 @@ public class SecondFragment extends Fragment {
         if (image.getY() >= screenHeight - 400) {
             if (!immune && !cotnari)
                 game = false;
-            if(cotnari){
+            if (cotnari) {
                 score++;
                 scoreLabel.setText(Integer.toString(score));
             }
@@ -406,7 +411,7 @@ public class SecondFragment extends Fragment {
                         return true;
                     }
                 });
-                time = 8000;
+                time = 10000;
 
                 break;
             case "Cipa":
@@ -425,7 +430,7 @@ public class SecondFragment extends Fragment {
 
                 magnet = true;
 
-                time = 7500;
+                time = 10000;
                 break;
             case "Luca":
                 toast = Toast.makeText(getActivity(),
@@ -440,11 +445,11 @@ public class SecondFragment extends Fragment {
                 break;
             case "Radu":
                 toast = Toast.makeText(getActivity(),
-                        "Power: Slow game",
+                        "Power: Slow motion",
                         Toast.LENGTH_SHORT);
                 toast.show();
-                speed = screenHeight / 205;
-                time = 22000;
+                speed = screenHeight / 200;
+                time = 30000;
                 break;
             case "Paul":
                 toast = Toast.makeText(getActivity(),
@@ -455,11 +460,11 @@ public class SecondFragment extends Fragment {
                 break;
             case "Mada":
                 toast = Toast.makeText(getActivity(),
-                        "Power: Double score",
+                        "Power: x5 score",
                         Toast.LENGTH_SHORT);
                 toast.show();
                 doubler = true;
-                time = 9000;
+                time = 10000;
                 break;
         }
         new Handler().postDelayed(new Runnable() {
@@ -510,11 +515,19 @@ public class SecondFragment extends Fragment {
 
         //reset speed
         if (score < 50) {
-            speed = screenHeight / 145;
-        } else if (score >= 50 && score < 100) {
-            speed = screenHeight / 115;
-        } else if (score >= 100) {
-            speed = screenHeight / 95;
+            speed = screenHeight / 200;
+        } else if (score < 100) {
+            speed = screenHeight / 150;
+        } else if (score < 200) {
+            speed = screenHeight / 140;
+        } else if (score < 300) {
+            speed = screenHeight / 120;
+        } else if (score < 400) {
+            speed = screenHeight / 100;
+        } else if (score < 500) {
+            speed = screenHeight / 80;
+        } else if (score > 500) {
+            speed = screenHeight / 60;
         }
 
         //reset magnet
