@@ -7,10 +7,11 @@
     <string name="start">Start</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Welcome to Parnaie!</string>
+    <string name="hello_first_fragment">Parnaie</string>
     <string name="credits">Developed by Scutaru Paul</string>
     <string name="power">Power</string>
     <string name="score">0</string>
     <string name="textScore">Score:</string>
-    <string name="hello_second_fragment">Pipi</string>
+    <string name="choose">Choose your fighter:</string>
+    <string name="pause">Options</string>
 </resources>
